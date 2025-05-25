@@ -115,6 +115,35 @@ endmodule
 // Top-level structural module for a 4-way set-associative cache controller
 // with FSM module, tag compare, data array, and LRU integration (simplified example)
 
+// 4-way LRU Tracker for a single set
+module lru_tracker (
+    input clk,
+    input rst_b,
+    input update,
+    input [1:0] accessed_way,
+    output [1:0] lru_way
+);
+    reg [1:0] lru_stack [0:3];
+    integer i;
+
+    always @(posedge clk or negedge rst_b) begin
+        if (!rst_b) begin
+            lru_stack[0] <= 2'd0;
+            lru_stack[1] <= 2'd1;
+            lru_stack[2] <= 2'd2;
+            lru_stack[3] <= 2'd3;
+        end else if (update) begin
+            for (i = 3; i > 0; i = i - 1)
+                lru_stack[i] <= (lru_stack[i-1] == accessed_way) ? lru_stack[i-1] : lru_stack[i];
+            lru_stack[0] <= accessed_way;
+        end
+    end
+
+    assign lru_way = lru_stack[3];
+endmodule
+
+
+
 module cache_controller (
     input clk,
     input reset,
@@ -126,6 +155,7 @@ module cache_controller (
     output wire ready,
     output wire mem_read,
     output wire mem_write,
+    output wire hit_cc,
     output wire cache_write,
     output wire update_lru,
     output wire [2:0] state_out,
@@ -171,6 +201,58 @@ module cache_controller (
     wire dirty = valid_array[index][evict_way] && dirty_array[index][evict_way];
     wire need_evict = valid_array[index][evict_way];
 
+    wire [1:0] lru_way0, lru_way1, lru_way2, lru_way3;
+    lru_tracker lru0 (.clk(clk), .rst_b(~reset), .update(update_lru && index[1:0] == 2'd0), .accessed_way(hit ? hit_way_reg : evict_way), .lru_way(lru_way0));
+    lru_tracker lru1 (.clk(clk), .rst_b(~reset), .update(update_lru && index[1:0] == 2'd1), .accessed_way(hit ? hit_way_reg : evict_way), .lru_way(lru_way1));
+    lru_tracker lru2 (.clk(clk), .rst_b(~reset), .update(update_lru && index[1:0] == 2'd2), .accessed_way(hit ? hit_way_reg : evict_way), .lru_way(lru_way2));
+    lru_tracker lru3 (.clk(clk), .rst_b(~reset), .update(update_lru && index[1:0] == 2'd3), .accessed_way(hit ? hit_way_reg : evict_way), .lru_way(lru_way3));
+
+reg [1:0] evict_way_mux;
+always @(*) begin
+    case (index[1:0])
+        2'd0: evict_way_mux = lru_way0;
+        2'd1: evict_way_mux = lru_way1;
+        2'd2: evict_way_mux = lru_way2;
+        2'd3: evict_way_mux = lru_way3;
+        default: evict_way_mux = 2'd0;
+    endcase
+end
+
+    always @(posedge clk) begin
+    if (reset) begin
+        // optional: clear arrays if you want full reset logic
+    end else begin
+        // WRITE HIT
+        if (cache_write && hit) begin
+            data_array[index][hit_way_reg][offset[5:2]] <= cpu_write_data;
+            dirty_array[index][hit_way_reg] <= 1;
+        end
+
+        // WRITE MISS or READ MISS → WRITE-ALLOCATE (via evict_way)
+        if (cache_write && !hit) begin
+            tag_array[index][evict_way][18:0] <= tag;
+            valid_array[index][evict_way] <= 1;
+            dirty_array[index][evict_way] <= write_req; // set dirty only if it's a write
+            data_array[index][evict_way][offset[5:2]] <= cpu_write_data;
+        end
+
+        // MEMORY REFILL (used during ALLOC_DATA state, typically after mem_read=1)
+        if (mem_read && !hit) begin
+            // On real memory systems, you'd refill the full block; simplified here
+            data_array[index][evict_way][offset[5:2]] <= mem_read_data;
+            tag_array[index][evict_way] <= tag;
+            valid_array[index][evict_way] <= 1;
+            if (!write_req)
+                dirty_array[index][evict_way] <= 0;
+        end
+
+        // LRU update is done separately via `update_lru` and lru_tracker
+    end
+end
+
+
+assign evict_way = evict_way_mux;
+
     // Instantiate FSM
     fsm controller_fsm (
         .clk(clk),
@@ -190,7 +272,7 @@ module cache_controller (
 
     // Read output purely combinational
     assign cpu_read_data = (hit && read_req) ? data_array[index][hit_way_reg][offset[5:2]] : 32'b0;
-
+    assign hit_cc = hit;
     // Memory write-back address and data
     assign mem_addr = {tag_array[index][evict_way], index, 6'b0};
     assign mem_write_data = data_array[index][evict_way][offset[5:2]];
@@ -225,6 +307,7 @@ module tb_cache_controller;
     wire [31:0] cpu_read_data;
     wire ready;
     wire mem_read;
+    wire hit;
     wire mem_write;
     wire cache_write;
     wire update_lru;
@@ -245,6 +328,7 @@ module tb_cache_controller;
         .ready(ready),
         .mem_read(mem_read),
         .mem_write(mem_write),
+        .hit_cc(hit),
         .cache_write(cache_write),
         .update_lru(update_lru),
         .state_out(state_out),
@@ -260,6 +344,26 @@ module tb_cache_controller;
     initial begin
         $monitor("[%0t] state=%b ready=%b read_req=%b write_req=%b addr=%h read_data=%h write_data=%h mem_read=%b mem_write=%b cache_write=%b update_lru=%b", 
                  $time, state_out, ready, read_req, write_req, addr, cpu_read_data, cpu_write_data, mem_read, mem_write, cache_write, update_lru);
+    end
+
+    integer total_accesses = 0;
+    integer total_hits = 0;
+    integer total_misses = 0;
+
+    always @(posedge clk) begin
+        if (read_req || write_req) begin
+            total_accesses = total_accesses + 1;
+        if (hit) total_hits = total_hits + 1;
+        else total_misses = total_misses + 1;
+        end
+    end
+
+    initial begin
+        #300;
+        $display("Total accesses: %0d", total_accesses);
+        $display("Total hits: %0d", total_hits);
+        $display("Total misses: %0d", total_misses);
+        $display("Hit rate: %0f%%", total_accesses ? 100.0 * total_hits / total_accesses : 0);
     end
 
     // Stimulus
@@ -305,7 +409,7 @@ module tb_cache_controller;
         read_req = 0;
 
         // Let it run a bit
-        #100;
+        #1000;
 
         $finish;
     end
