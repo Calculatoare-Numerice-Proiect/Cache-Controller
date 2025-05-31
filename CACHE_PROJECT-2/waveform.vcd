@@ -1,0 +1,535 @@
+$date
+	Sat May 31 22:59:16 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module cache_controller_tb $end
+$var wire 1 ! ready $end
+$var wire 8 " data_out [7:0] $end
+$var reg 1 # clk $end
+$var reg 1 $ opcode $end
+$var reg 1 % rst_b $end
+$scope module uut $end
+$var wire 32 & address [31:0] $end
+$var wire 1 # clk $end
+$var wire 8 ' data_out [7:0] $end
+$var wire 1 $ opcode $end
+$var wire 1 % rst_b $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 1 ! ready $end
+$var wire 1 * mem_write $end
+$var wire 1 + mem_read $end
+$var wire 1 , hit $end
+$var wire 3 - fsm_state [2:0] $end
+$var wire 1 . dirty $end
+$var wire 1 / cache_write $end
+$var wire 8 0 cache_data [7:0] $end
+$var parameter 32 1 ADDRESS_WORD_SIZE $end
+$var parameter 32 2 BLOCK_SIZE $end
+$var parameter 32 3 NUMBER_OF_SETS $end
+$var parameter 32 4 TAG_SIZE $end
+$var parameter 32 5 WORD_SIZE $end
+$scope module cache_inst $end
+$var wire 32 6 addr [31:0] $end
+$var wire 1 # clk $end
+$var wire 1 % rst_b $end
+$var wire 1 7 valid $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 2 8 index [1:0] $end
+$var wire 1 , hit $end
+$var wire 1 . dirty $end
+$var wire 8 9 data_out [7:0] $end
+$var wire 1 / cache_write $end
+$var parameter 32 : ADDRESS_WORD_SIZE $end
+$scope module set $end
+$var wire 32 ; address_word [31:0] $end
+$var wire 1 # clk $end
+$var wire 8 < data [7:0] $end
+$var wire 1 % rst_b $end
+$var wire 8 = write_data [7:0] $end
+$var wire 4 > valid_vec [3:0] $end
+$var wire 1 7 valid_out $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 4 ? hit_vec [3:0] $end
+$var wire 1 , hit_miss $end
+$var wire 2 @ hit_index [1:0] $end
+$var wire 4 A dirty_vec [3:0] $end
+$var wire 1 . dirty_out $end
+$var wire 1 / cache_write $end
+$var parameter 32 B ADDRESS_WORD_SIZE $end
+$var parameter 32 C BLOCK_SIZE $end
+$var parameter 32 D TAG_SIZE $end
+$var parameter 32 E WORD_SIZE $end
+$scope begin cache_lines[0] $end
+$var parameter 2 F i $end
+$scope module line $end
+$var wire 32 G addr [31:0] $end
+$var wire 1 H cache_write $end
+$var wire 1 # clk $end
+$var wire 1 I hit $end
+$var wire 1 % rst_b $end
+$var wire 8 J write_data [7:0] $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 19 K addr_tag [18:0] $end
+$var parameter 32 L ADDRESS_WORD_SIZE $end
+$var parameter 32 M TAG_SIZE $end
+$var parameter 32 N WORD_SIZE $end
+$var reg 8 O data [7:0] $end
+$var reg 8 P data_out [7:0] $end
+$var reg 1 Q dirty $end
+$var reg 19 R tag [18:0] $end
+$var reg 1 S valid $end
+$upscope $end
+$upscope $end
+$scope begin cache_lines[1] $end
+$var parameter 2 T i $end
+$scope module line $end
+$var wire 32 U addr [31:0] $end
+$var wire 1 V cache_write $end
+$var wire 1 # clk $end
+$var wire 1 W hit $end
+$var wire 1 % rst_b $end
+$var wire 8 X write_data [7:0] $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 19 Y addr_tag [18:0] $end
+$var parameter 32 Z ADDRESS_WORD_SIZE $end
+$var parameter 32 [ TAG_SIZE $end
+$var parameter 32 \ WORD_SIZE $end
+$var reg 8 ] data [7:0] $end
+$var reg 8 ^ data_out [7:0] $end
+$var reg 1 _ dirty $end
+$var reg 19 ` tag [18:0] $end
+$var reg 1 a valid $end
+$upscope $end
+$upscope $end
+$scope begin cache_lines[2] $end
+$var parameter 3 b i $end
+$scope module line $end
+$var wire 32 c addr [31:0] $end
+$var wire 1 d cache_write $end
+$var wire 1 # clk $end
+$var wire 1 e hit $end
+$var wire 1 % rst_b $end
+$var wire 8 f write_data [7:0] $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 19 g addr_tag [18:0] $end
+$var parameter 32 h ADDRESS_WORD_SIZE $end
+$var parameter 32 i TAG_SIZE $end
+$var parameter 32 j WORD_SIZE $end
+$var reg 8 k data [7:0] $end
+$var reg 8 l data_out [7:0] $end
+$var reg 1 m dirty $end
+$var reg 19 n tag [18:0] $end
+$var reg 1 o valid $end
+$upscope $end
+$upscope $end
+$scope begin cache_lines[3] $end
+$var parameter 3 p i $end
+$scope module line $end
+$var wire 32 q addr [31:0] $end
+$var wire 1 r cache_write $end
+$var wire 1 # clk $end
+$var wire 1 s hit $end
+$var wire 1 % rst_b $end
+$var wire 8 t write_data [7:0] $end
+$var wire 1 ( try_write $end
+$var wire 1 ) try_read $end
+$var wire 19 u addr_tag [18:0] $end
+$var parameter 32 v ADDRESS_WORD_SIZE $end
+$var parameter 32 w TAG_SIZE $end
+$var parameter 32 x WORD_SIZE $end
+$var reg 8 y data [7:0] $end
+$var reg 8 z data_out [7:0] $end
+$var reg 1 { dirty $end
+$var reg 19 | tag [18:0] $end
+$var reg 1 } valid $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module fsm $end
+$var wire 1 / cache_write $end
+$var wire 1 # clk $end
+$var wire 1 . dirty $end
+$var wire 1 , hit $end
+$var wire 1 ~ op_read $end
+$var wire 1 $ op_write $end
+$var wire 1 ! ready $end
+$var wire 1 % rst_b $end
+$var wire 1 ) try_read $end
+$var wire 1 ( try_write $end
+$var wire 8 !" state_decode [7:0] $end
+$var wire 3 "" next_state [2:0] $end
+$var wire 1 * mem_write $end
+$var wire 1 + mem_read $end
+$var wire 3 #" current_state [2:0] $end
+$var parameter 3 $" ALLOCATE $end
+$var parameter 3 %" EVICT $end
+$var parameter 3 &" IDLE $end
+$var parameter 3 '" READ_HIT $end
+$var parameter 3 (" READ_MISS $end
+$var parameter 3 )" WRITE_HIT $end
+$var parameter 3 *" WRITE_MISS $end
+$scope module decode_state $end
+$var wire 3 +" in [2:0] $end
+$var reg 8 ," out [7:0] $end
+$upscope $end
+$scope module logic_unit $end
+$var wire 1 . dirty $end
+$var wire 1 , hit $end
+$var wire 1 ~ op_read $end
+$var wire 1 $ op_write $end
+$var wire 3 -" current_state [2:0] $end
+$var parameter 3 ." ALLOCATE $end
+$var parameter 3 /" EVICT $end
+$var parameter 3 0" IDLE $end
+$var parameter 3 1" READ_HIT $end
+$var parameter 3 2" READ_MISS $end
+$var parameter 3 3" WRITE_HIT $end
+$var parameter 3 4" WRITE_MISS $end
+$var reg 3 5" next_state [2:0] $end
+$upscope $end
+$scope module state_reg $end
+$var wire 1 # clk $end
+$var wire 3 6" d [2:0] $end
+$var wire 1 % rst_b $end
+$var reg 3 7" q [2:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b100 4"
+b11 3"
+b10 2"
+b1 1"
+b0 0"
+b101 /"
+b110 ."
+b100 *"
+b11 )"
+b10 ("
+b1 '"
+b0 &"
+b101 %"
+b110 $"
+b1000 x
+b10011 w
+b100000 v
+b11 p
+b1000 j
+b10011 i
+b100000 h
+b10 b
+b1000 \
+b10011 [
+b100000 Z
+b1 T
+b1000 N
+b10011 M
+b100000 L
+b0 F
+b1000 E
+b10011 D
+b1000 C
+b100000 B
+b100000 :
+b1000 5
+b10011 4
+b10000000 3
+b1000 2
+b100000 1
+$end
+#0
+$dumpvars
+b0 7"
+b10 6"
+b10 5"
+b0 -"
+b1 ,"
+b0 +"
+b0 #"
+b10 ""
+b1 !"
+1~
+0}
+b0 |
+0{
+b0 z
+b0 y
+b0 u
+b10101010 t
+0s
+0r
+b10000 q
+0o
+b0 n
+0m
+b0 l
+b0 k
+b0 g
+b10101010 f
+0e
+0d
+b10000 c
+0a
+b0 `
+0_
+b0 ^
+b0 ]
+b0 Y
+b10101010 X
+0W
+0V
+b10000 U
+0S
+b0 R
+0Q
+b0 P
+b0 O
+b0 K
+b10101010 J
+0I
+0H
+b10000 G
+b0 A
+b0 @
+b0 ?
+b0 >
+b10101010 =
+b0 <
+b10000 ;
+b0 9
+b0 8
+07
+b10000 6
+b0 0
+0/
+0.
+b0 -
+0,
+0+
+0*
+1)
+0(
+b0 '
+b10000 &
+0%
+0$
+0#
+b0 "
+0!
+$end
+#5
+1#
+#10
+0#
+1%
+#15
+0)
+b100 !"
+b100 ,"
+b110 ""
+b110 5"
+b110 6"
+b10 -
+b10 #"
+b10 +"
+b10 -"
+b10 7"
+1#
+#20
+0#
+#25
+1H
+1!
+1/
+1+
+b1000000 !"
+b1000000 ,"
+b0 ""
+b0 5"
+b0 6"
+b110 -
+b110 #"
+b110 +"
+b110 -"
+b110 7"
+1#
+#30
+0~
+0#
+1$
+#35
+0H
+1(
+0!
+0/
+0+
+b1 !"
+b1 ,"
+b11 ""
+b11 5"
+b11 6"
+1,
+b1 ?
+1I
+b0 -
+b0 #"
+b0 +"
+b0 -"
+b0 7"
+17
+b1 >
+1S
+b10101010 O
+1#
+#40
+0#
+#45
+1!
+1H
+1/
+0(
+b1000 !"
+b1000 ,"
+b0 ""
+b0 5"
+b0 6"
+1.
+b1 A
+1Q
+b11 -
+b11 #"
+b11 +"
+b11 -"
+b11 7"
+1#
+#50
+1~
+0#
+0$
+#55
+0!
+0H
+1)
+0/
+b1 !"
+b1 ,"
+b1 ""
+b1 5"
+b1 6"
+b0 -
+b0 #"
+b0 +"
+b0 -"
+b0 7"
+1#
+#60
+0#
+#65
+1!
+0)
+b10 !"
+b10 ,"
+b0 ""
+b0 5"
+b0 6"
+b10101010 P
+b10101010 "
+b10101010 '
+b10101010 0
+b10101010 9
+b10101010 <
+b1 -
+b1 #"
+b1 +"
+b1 -"
+b1 7"
+1#
+#70
+0~
+0#
+1$
+#75
+0!
+1(
+b1 !"
+b1 ,"
+b11 ""
+b11 5"
+b11 6"
+b0 -
+b0 #"
+b0 +"
+b0 -"
+b0 7"
+1#
+#80
+0#
+#85
+1!
+1H
+1/
+0(
+b1000 !"
+b1000 ,"
+b0 ""
+b0 5"
+b0 6"
+b11 -
+b11 #"
+b11 +"
+b11 -"
+b11 7"
+1#
+#90
+1~
+0#
+0$
+#95
+0!
+0H
+1)
+0/
+b1 !"
+b1 ,"
+b1 ""
+b1 5"
+b1 6"
+b0 -
+b0 #"
+b0 +"
+b0 -"
+b0 7"
+1#
+#100
+0#
+#105
+1!
+0)
+b10 !"
+b10 ,"
+b0 ""
+b0 5"
+b0 6"
+b1 -
+b1 #"
+b1 +"
+b1 -"
+b1 7"
+1#
+#110
+0#
