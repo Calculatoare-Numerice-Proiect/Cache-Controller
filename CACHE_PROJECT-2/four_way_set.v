@@ -4,6 +4,7 @@
 module four_way_set #(
     parameter ADDRESS_WORD_SIZE = 32,
     parameter TAG_SIZE = 19,
+    parameter INDEX_SIZE = 7,
     parameter BLOCK_SIZE = 8,
     parameter WORD_SIZE = 8
 ) (
@@ -20,6 +21,11 @@ module four_way_set #(
     output dirty_out,
     output valid_out
 );
+
+    // === Tag and Index extraction ===
+    wire [TAG_SIZE-1:0] tag = address_word[ADDRESS_WORD_SIZE-1 -: TAG_SIZE];      // [31:13]
+    wire [INDEX_SIZE-1:0]index = address_word[ADDRESS_WORD_SIZE - TAG_SIZE - 1 -: INDEX_SIZE]; // [12:6]
+
 
     wire [3:0] hit_vec;
     wire [3:0] valid_vec;
@@ -59,3 +65,4 @@ module four_way_set #(
     assign valid_out = valid_vec[hit_index];
 
 endmodule
+
