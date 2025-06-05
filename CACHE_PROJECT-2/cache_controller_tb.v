@@ -1,65 +1,81 @@
+timescale 1ns / 1ps
 `include "cache_controller.v"
-// Testbench for cache_controller with FSM and four_way_set
-// Testbench for cache_controller with FSM and four_way_set
-
 module cache_controller_tb;
 
+    // Inputs
     reg clk;
     reg rst_b;
-    reg opcode; // 0 = read, 1 = write
+    reg opcode;
+    reg [7:0] data_in; // Data input for write operations
+    reg [31:0] address; // Address input for cache operations
+    // Outputs
     wire [7:0] data_out;
+    wire hit;
     wire ready;
 
-    // Instantiate cache_controller
+    // Instantiate DUT
     cache_controller uut (
         .clk(clk),
         .rst_b(rst_b),
         .opcode(opcode),
+        .data_in(data_in),
+        .address(address),
         .data_out(data_out),
+        .hit(hit),
         .ready(ready)
     );
 
     // Clock generator
+    initial clk = 0;
     always #5 clk = ~clk;
 
+    task send_op(input reg rw, input [7:0] val,input [31:0] addr);
+        begin
+            @(posedge clk);
+            opcode <= rw;
+            data_in <= val;
+            address <= addr;
+            $display("Opcode = %0s | Addr = 0x%08h | data_in = 0x%0h @ %0t", 
+                  rw ? "WRITE" : "READ", addr, val, $time);
+             #20;
+        end
+    endtask
+
+    task wait_ready;
+        begin
+            while (!ready)
+                @(posedge clk);
+            $display("READY: data_out = 0x%0h | RESULT = %s @ %0t",
+                 data_out, hit ? "HIT " : "MISS", $time);
+        end
+    endtask
+
     initial begin
-        $display("Start simulation");
-        $dumpfile("waveform.vcd");
-        $dumpvars(0, cache_controller_tb);
 
         clk = 0;
         rst_b = 0;
-        opcode = 0;
+        opcode = 0;  // read
 
-        #10;
-        rst_b = 1;
+        // Reset phase
+        #12 rst_b = 1;
 
-        // === READ MISS ===
-        opcode = 0;
-        #20;
-        $display("[READ MISS] data_out = %h, ready = %b", data_out, ready);
+        send_op(0, 8'h00, 32'h00000010); wait_ready(); // MISS
+        send_op(0, 8'h00, 32'h00000010); wait_ready(); // HIT
+        
+        send_op(1, 8'hA5, 32'h00000080); wait_ready(); // MISS
 
-        // === WRITE MISS ===
-        opcode = 1;
-        #20;
-        $display("[WRITE MISS] data_out = %h, ready = %b", data_out, ready);
+        send_op(1, 8'hB6, 32'h00000100); wait_ready(); // HIT
+        send_op(0, 8'h00, 32'h00000100); wait_ready(); // HIT
 
-        // === READ HIT ===
-        opcode = 0;
-        #20;
-        $display("[READ HIT] data_out = %h, ready = %b", data_out, ready);
+        send_op(0, 8'h00, 32'h00000200); wait_ready(); // MISS
+        send_op(1, 8'hC7, 32'h00000200); wait_ready(); // HIT
+        send_op(0, 8'h00, 32'h00000200); wait_ready(); // HIT
 
-        // === WRITE HIT ===
-        opcode = 1;
-        #20;
-        $display("[WRITE HIT] data_out = %h, ready = %b", data_out, ready);
+        send_op(0, 8'h00, 32'h00000400); wait_ready(); // MISS
+        send_op(1, 8'hD8, 32'h00000400); wait_ready(); // HIT
+        send_op(0, 8'h00, 32'h00000400); wait_ready(); // HIT
 
-        // === READ after eviction ===
-        opcode = 0;
-        #20;
-        $display("[READ after eviction] data_out = %h, ready = %b", data_out, ready);
-
-        $display("End simulation");
+        $display("Simulation done.");
         $finish;
     end
 
