@@ -12,12 +12,14 @@ module cache_controller #(
     input clk,
     input rst_b,
     input opcode,         // 0: read, 1: write
+    input [7:0]data_in,
+    input [ADDRESS_WORD_SIZE-1:0] address,
     output [7:0] data_out,
+    output hit,
     output ready
 );
 
     // Signals
-    wire hit;
     wire dirty;
     wire [2:0] fsm_state;
     wire try_read;
@@ -26,10 +28,6 @@ module cache_controller #(
     wire mem_write;
     wire cache_write;
     wire [7:0] cache_data;
-    wire [ADDRESS_WORD_SIZE-1:0] address;
-
-    assign address = 32'h00000010; // static test address for now
-
     // Instantiate structural FSM
     fsm_structural fsm (
         .clk(clk),
@@ -55,6 +53,7 @@ module cache_controller #(
         .try_read(try_read),
         .try_write(try_write),
         .cache_write(cache_write),
+        .write_data(data_in), 
         .data_out(cache_data),
         .hit(hit),
         .dirty(dirty)
