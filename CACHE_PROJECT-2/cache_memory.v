@@ -29,6 +29,7 @@ module cache_memory #(
 
     genvar i;
     generate
+    //all 128 cache sets
         for (i = 0; i < NUMBER_OF_SETS; i = i + 1) begin : sets
             wire active = (index == i);
             four_way_set #(

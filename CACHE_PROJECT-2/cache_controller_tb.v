@@ -1,4 +1,4 @@
-timescale 1ns / 1ps
+`timescale 1ns / 1ps
 `include "cache_controller.v"
 module cache_controller_tb;
 
@@ -25,10 +25,11 @@ module cache_controller_tb;
         .ready(ready)
     );
 
-    // Clock generator
+    // Clock 
     initial clk = 0;
     always #5 clk = ~clk;
 
+    //task to send operation to cache controller
     task send_op(input reg rw, input [7:0] val,input [31:0] addr);
         begin
             @(posedge clk);
@@ -40,7 +41,7 @@ module cache_controller_tb;
              #20;
         end
     endtask
-
+    //waiting for ready signal
     task wait_ready;
         begin
             while (!ready)

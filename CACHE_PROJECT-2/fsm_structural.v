@@ -1,6 +1,5 @@
 
-// Structural FSM for cache control (updated with outputs for cache_controller integration)
-
+// Structural FSM for cache control 
 module fsm_structural (
     input clk,
     input rst_b,
@@ -37,7 +36,7 @@ dff_3bit state_reg (
     .q(current_state)
 );
 
-// Decode current state
+//decoder
 decoder_3x8 decode_state (
     .in(current_state),
     .out(state_decode)

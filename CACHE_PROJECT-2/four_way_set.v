@@ -22,7 +22,7 @@ module four_way_set #(
     output valid_out
 );
 
-    // === Tag and Index extraction ===
+    //  Tag and Index extraction 
     wire [TAG_SIZE-1:0] tag = address_word[ADDRESS_WORD_SIZE-1 -: TAG_SIZE];      // [31:13]
     wire [INDEX_SIZE-1:0]index = address_word[ADDRESS_WORD_SIZE - TAG_SIZE - 1 -: INDEX_SIZE]; // [12:6]
 
@@ -34,6 +34,7 @@ module four_way_set #(
 
     genvar i;
     generate
+    //the 4 lines of the cache set, 4 way SA
         for (i = 0; i < 4; i = i + 1) begin : cache_lines
             cache_line line (
                 .clk(clk),
@@ -51,7 +52,7 @@ module four_way_set #(
         end
     endgenerate
 
-    // Determine if there is a hit
+    // Determine if  hit or miss
     assign hit_miss = |hit_vec;
 
     // Select first match (priority encoder)

@@ -17,11 +17,11 @@ module cache_line #(
     output dirty
 );
 
-    // === Split address ===
+    // Split address
     wire [TAG_SIZE-1:0] addr_tag;
     assign addr_tag = addr[ADDRESS_WORD_SIZE-1 -: TAG_SIZE];
 
-    // === TAG register ===
+    // TAG register 
     wire [TAG_SIZE-1:0] tag_out;
     wire tag_en;
     assign tag_en = cache_write;
@@ -38,7 +38,7 @@ module cache_line #(
         end
     endgenerate
 
-    // === DATA register ===
+    //data registers
     wire [WORD_SIZE-1:0] data_out_reg;
     wire data_en = (try_write & hit_internal) | cache_write;
     wire [WORD_SIZE-1:0] data_mux_out;
@@ -56,10 +56,10 @@ module cache_line #(
         end
     endgenerate
 
-    // === DATA_OUT for reads ===
+    //data out, for read operations
     assign data_out = data_out_reg;
 
-    // === VALID register ===
+    //VALID register 
     dff valid_dff (
         .clk(clk),
         .rst_b(rst_b),
@@ -68,7 +68,7 @@ module cache_line #(
         .q(valid)
     );
 
-    // === DIRTY register ===
+    // DIRTY register
     wire dirty_set = try_write & hit_internal;
     wire dirty_clr = cache_write;
     wire dirty_next = dirty_set ? 1'b1 : (dirty_clr ? 1'b0 : dirty);
@@ -80,7 +80,7 @@ module cache_line #(
         .q(dirty)
     );
 
-    // === HIT logic ===
+    // hit check
     wire tag_match;
     comparator #(TAG_SIZE) tag_cmp (
         .a(tag_out),
@@ -92,7 +92,7 @@ module cache_line #(
 
 endmodule
 
-
+// flip flop module
 module dff (
     input clk,
     input rst_b,
@@ -107,7 +107,7 @@ module dff (
             q <= d;
     end
 endmodule
-
+//comparator module
 module comparator #(parameter N = 8) (
     input [N-1:0] a,
     input [N-1:0] b,
