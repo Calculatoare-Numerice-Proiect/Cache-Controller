@@ -45,7 +45,6 @@ module cache_line #(
         .q(valid)
     );
 
-    // === HIT CHECK (trebuie înainte de data_en) ===
     wire tag_match;
     comparator #(TAG_SIZE) tag_cmp (
         .a(tag_out),

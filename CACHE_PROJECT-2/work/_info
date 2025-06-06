@@ -9,7 +9,7 @@ z2
 cModel Technology
 Z0 dC:/Users/daria/Documents/GitHub/Faculta/Proiecte/Cache-Controller_final/CACHE_PROJECT-2
 vcache_controller
-Z1 !s110 1749210231
+Z1 !s110 1749218079
 !i10b 1
 !s100 >Jm62Hn_Q@Deb_68dGYzh1
 IP7]L]00cd9RcTgDe<E3WE2
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1749210231.000000
+Z4 !s108 1749218079.000000
 Z5 !s107 cache_controller_tb.v|fsm_structural.v|four_way_set.v|cache_memory.v|cache_line.v|cache_controller.v|
 Z6 !s90 -reportprogress|300|cache_controller.v|cache_line.v|cache_memory.v|four_way_set.v|fsm_structural.v|cache_controller_tb.v|
 !i113 1
@@ -31,11 +31,11 @@ Z7 tCvgOpt 0
 vcache_controller_tb
 R1
 !i10b 1
-!s100 7m5;5JZM7lGC@le<9jX:R1
-II]ANb1C]aL_;>QPdo;h>R0
+!s100 Y_QbHQDVgn0EECA;CIbHY0
+ITboGQ6SiChKJd7>db]XVK3
 R2
 R0
-w1749209436
+w1749218062
 8cache_controller_tb.v
 Fcache_controller_tb.v
 L0 2
@@ -51,11 +51,11 @@ R7
 vcache_line
 R1
 !i10b 1
-!s100 U5lj;FOm=Bd0GnRW?od<62
-IXGh;Eb?8SA]@Ci3^icE;[0
+!s100 ZNcf8R34N?:ZMBg]^3nLE3
+IS]26]Cz@TmcHWd7nYD;9^2
 R2
 R0
-Z8 w1749210175
+Z8 w1749210761
 Z9 8cache_line.v
 Z10 Fcache_line.v
 L0 1
@@ -91,14 +91,14 @@ R7
 vcomparator
 R1
 !i10b 1
-!s100 NZJhSa<6kIMFF[F8GXe?k3
-IeWoTcR`Y9JMDCIQ`826791
+!s100 SFgm>GD1ZV]NIzG46j4FR1
+Icn8I;ZAm9SGz6Gm8GVYDa3
 R2
 R0
 R8
 R9
 R10
-L0 108
+L0 107
 R3
 r1
 !s85 0
@@ -131,14 +131,14 @@ R7
 vdff
 R1
 !i10b 1
-!s100 I0[;48_^6Yl1lZBm8WHiO0
-IS<bh9WY2EKGGF:lNzk@JI1
+!s100 oaTEKe[DY86_l:jSUz>_d2
+IfV?`BUoni=z>dkLh]J>Sn1
 R2
 R0
 R8
 R9
 R10
-L0 92
+L0 91
 R3
 r1
 !s85 0
