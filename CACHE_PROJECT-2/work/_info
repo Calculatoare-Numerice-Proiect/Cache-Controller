@@ -1,0 +1,230 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/daria/Documents/GitHub/Faculta/Proiecte/Cache-Controller_final/CACHE_PROJECT-2
+vcache_controller
+Z1 !s110 1749210231
+!i10b 1
+!s100 >Jm62Hn_Q@Deb_68dGYzh1
+IP7]L]00cd9RcTgDe<E3WE2
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1749209432
+8cache_controller.v
+Fcache_controller.v
+L0 3
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1749210231.000000
+Z5 !s107 cache_controller_tb.v|fsm_structural.v|four_way_set.v|cache_memory.v|cache_line.v|cache_controller.v|
+Z6 !s90 -reportprogress|300|cache_controller.v|cache_line.v|cache_memory.v|four_way_set.v|fsm_structural.v|cache_controller_tb.v|
+!i113 1
+Z7 tCvgOpt 0
+vcache_controller_tb
+R1
+!i10b 1
+!s100 7m5;5JZM7lGC@le<9jX:R1
+II]ANb1C]aL_;>QPdo;h>R0
+R2
+R0
+w1749209436
+8cache_controller_tb.v
+Fcache_controller_tb.v
+L0 2
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vcache_line
+R1
+!i10b 1
+!s100 U5lj;FOm=Bd0GnRW?od<62
+IXGh;Eb?8SA]@Ci3^icE;[0
+R2
+R0
+Z8 w1749210175
+Z9 8cache_line.v
+Z10 Fcache_line.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vcache_memory
+R1
+!i10b 1
+!s100 <@Fj:C9ATGoWeMgkg`CQ53
+IARkK`kHfSzhY]on3;3hlJ0
+R2
+R0
+w1749209445
+8cache_memory.v
+Fcache_memory.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vcomparator
+R1
+!i10b 1
+!s100 NZJhSa<6kIMFF[F8GXe?k3
+IeWoTcR`Y9JMDCIQ`826791
+R2
+R0
+R8
+R9
+R10
+L0 108
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vdecoder_3x8
+R1
+!i10b 1
+!s100 2B]P?FLBg]2N0l@=n2M8h3
+IZ7l81eT^^?I619FgTfajI0
+R2
+R0
+Z11 w1749209310
+Z12 8fsm_structural.v
+Z13 Ffsm_structural.v
+L0 65
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vdff
+R1
+!i10b 1
+!s100 I0[;48_^6Yl1lZBm8WHiO0
+IS<bh9WY2EKGGF:lNzk@JI1
+R2
+R0
+R8
+R9
+R10
+L0 92
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vdff_3bit
+R1
+!i10b 1
+!s100 7c_V8bQYDd5PR__f0k]UC0
+IgX=1l<n[AdNz]8DT@z<kb2
+R2
+R0
+R11
+R12
+R13
+L0 112
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vfour_way_set
+R1
+!i10b 1
+!s100 J8BAB]O4h:B[MYWgj3?a23
+I^PT;j;ckSjSke@P^kK>=00
+R2
+R0
+w1749209450
+8four_way_set.v
+Ffour_way_set.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vfsm_structural
+R1
+!i10b 1
+!s100 XIJPGK^aNKb3IoaDKE;S:2
+I1n;jG^1A`bCa7KLB2L;OJ2
+R2
+R0
+R11
+R12
+R13
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vnext_state_logic
+R1
+!i10b 1
+!s100 OTa;W>Y2GU=[Fe<eLNT^B3
+IU@;`^hfmaLiFGGT65E>Ba1
+R2
+R0
+R11
+R12
+R13
+L0 75
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7

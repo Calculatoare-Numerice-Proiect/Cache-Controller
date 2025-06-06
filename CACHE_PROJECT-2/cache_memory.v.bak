@@ -1,3 +1,5 @@
+`include "four_way_set.v"
+
 module cache_memory #(
     parameter ADDRESS_WORD_SIZE = 32,
     parameter TAG_SIZE = 19,

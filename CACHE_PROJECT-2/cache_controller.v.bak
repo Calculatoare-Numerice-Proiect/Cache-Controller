@@ -1,3 +1,5 @@
+`include "fsm_structural.v"
+`include "cache_memory.v"
 // Patched cache_controller that uses structural FSM
 
 module cache_controller #(
